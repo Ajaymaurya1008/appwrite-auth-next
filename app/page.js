@@ -1,6 +1,26 @@
+'use client'
 import Link from "next/link";
+import { account } from "./auth/appwrite";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter();
+
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const secret = urlParams.get("secret");
+  const userId = urlParams.get("userId");
+
+  account.updateVerification(userId, secret)
+    .then((response) => {
+      console.log("Verification success");
+      console.log(response);
+      router.push("/auth/login");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return (
     <div className="relative h-screen bg-purple-50 text-gray-900">
