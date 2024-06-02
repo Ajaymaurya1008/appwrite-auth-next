@@ -73,6 +73,7 @@ const SignUpPage = () => {
         `${process.env.NEXT_PUBLIC_DOMAIN}/dashboard`,
         `${process.env.NEXT_PUBLIC_DOMAIN}/auth/signup`
       );
+      toast.success("Account created successfully");
       console.log(response);
     } catch (error) {
       console.log(error);
