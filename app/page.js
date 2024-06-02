@@ -88,7 +88,7 @@ export default function Home() {
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 </p>
                 <div className="mt-8 flex flex-col items-center justify-center sm:flex-row sm:space-x-4 lg:justify-start">
-                  <button className="relative mt-4 rounded-lg border-2 border-purple-600 bg-purple-600 px-6 py-2 font-medium text-white transition hover:translate-y-1">
+                  <button onClick={handleRedirect} className="relative mt-4 rounded-lg border-2 border-purple-600 bg-purple-600 px-6 py-2 font-medium text-white transition hover:translate-y-1">
                     <div className="-scale-x-100 absolute left-0 -bottom-10 hidden h-10 w-10 -rotate-12 text-purple-600 md:inline-flex">
                       <svg
                         viewBox="0 0 82 35"
