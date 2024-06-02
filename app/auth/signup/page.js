@@ -35,7 +35,7 @@ const SignUpPage = () => {
       if (userAccount.status) {
         await account.createEmailPasswordSession(user.email, user.password);
         const verify = await account.createVerification(
-          "http://localhost:3000/auth/verify"
+          `${process.env.NEXT_PUBLIC_DOMAIN}/auth/verify`
         );
         console.log("account verify", verify);
         toast.success(
