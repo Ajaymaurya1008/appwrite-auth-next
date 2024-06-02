@@ -39,7 +39,7 @@ const SignUpPage = () => {
         );
         console.log("account verify", verify);
         toast.success(
-          "Account created successfully, please check your email for verification"
+          "Account created successfully, please verify your email"
         );
         router.push("/auth/login");
       }
