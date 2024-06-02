@@ -8,18 +8,22 @@ const DashBoardPage = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const user = await account.get();
-    console.log(user);
-    await account.deleteSession('current');
-    toast.success("Logged out successfully");
-    router.push("/");
+    try {
+      await account.deleteSession("current");
+      toast.success("Logged out successfully");
+      router.push("/");
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   useEffect(() => {
     const getUser = async () => {
-      const user = await account.get();
-      console.log(user);
-      if (!user) {
+      try {
+        const user = await account.get();
+      } catch (error) {
+        console.log("error", error);
+        console.log(error.response);
         router.push("/auth/login");
       }
     };

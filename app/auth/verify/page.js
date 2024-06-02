@@ -15,11 +15,11 @@ const VerifyPage = () => {
     .updateVerification(userId, secret)
     .then((response) => {
       console.log("Verification success");
-      console.log(response);
       router.push("/auth/login");
     })
     .catch((error) => {
       console.log(error);
+      console.log(error.response);
     });
 
   const verifyEmail = async () => {
