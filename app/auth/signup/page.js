@@ -22,36 +22,44 @@ const SignUpPage = () => {
 
   const register = async () => {
     try {
+      if (!user.email || !user.password || !user.name) {
+        toast.error("All fields are required");
+        return;
+      }
+
       if (await checkLoggedIn()) {
         await account.deleteSession("current");
       }
+
       const userAccount = await account.create(
         ID.unique(),
         user.email,
         user.password,
         user.name
       );
+
       console.log(userAccount);
+
       if (userAccount.status) {
         await account.createEmailPasswordSession(user.email, user.password);
         const verify = await account.createVerification(
           `${process.env.NEXT_PUBLIC_DOMAIN}/auth/verify`
         );
         console.log("account verify", verify);
-        toast.success(
-          "Account created successfully, please verify your email"
-        );
+        toast.success("Account created successfully, please verify your email");
         router.push("/auth/login");
       }
     } catch (error) {
       console.error(error);
-      console.log(error.response);
       if (error?.response?.code === 409) {
         toast.error("User with this email already exists");
+      } else {
+        toast.error(
+          "There was an error processing your request. Please check the inputs and try again."
+        );
       }
     }
   };
-
 
   const googleAuth = async () => {
     try {
@@ -147,7 +155,10 @@ const SignUpPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-x-3">
-            <button onClick={googleAuth} className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
+            <button
+              onClick={googleAuth}
+              className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
+            >
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 48 48"
@@ -179,7 +190,10 @@ const SignUpPage = () => {
                 </defs>
               </svg>
             </button>
-            <button onClick={githubAuth} className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
+            <button
+              onClick={githubAuth}
+              className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100"
+            >
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 48 48"
