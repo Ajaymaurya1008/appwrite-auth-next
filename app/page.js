@@ -1,18 +1,17 @@
-'use client'
+"use client";
 import Link from "next/link";
-import { account } from "./auth/appwrite";
+import { account, checkLoggedIn } from "./auth/appwrite";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-
   const router = useRouter();
-
 
   const urlParams = new URLSearchParams(window.location.search);
   const secret = urlParams.get("secret");
   const userId = urlParams.get("userId");
 
-  account.updateVerification(userId, secret)
+  account
+    .updateVerification(userId, secret)
     .then((response) => {
       console.log("Verification success");
       console.log(response);
@@ -21,6 +20,15 @@ export default function Home() {
     .catch((error) => {
       console.log(error);
     });
+
+  const handleRedirect = async () => {
+    const isLoggedIn = await checkLoggedIn();
+    if (isLoggedIn) {
+      router.push("/dashboard");
+    } else {
+      router.push("/auth/login");
+    }
+  };
 
   return (
     <div className="relative h-screen bg-purple-50 text-gray-900">
@@ -32,7 +40,7 @@ export default function Home() {
           <span className="mr-2 w-8">
             <img src="/images/JOJj79gp_Djhwdp_ZOKLL.png" alt="" />
           </span>
-          App-auth
+          Next-auth
         </a>
         <input type="checkbox" className="peer hidden" id="navbar-open" />
         <label
@@ -70,11 +78,12 @@ export default function Home() {
               <a href="#">Support</a>
             </li>
             <li className="md:mr-12">
-              <Link href="/auth/login">
-                <button className="rounded-full border-2 border-violet-900 px-6 py-1 text-violet-900 transition-colors hover:bg-violet-500 hover:text-white">
-                  Login
-                </button>
-              </Link>
+              <button
+                onClick={handleRedirect}
+                className="rounded-full border-2 border-violet-900 px-6 py-1 text-violet-900 transition-colors hover:bg-violet-500 hover:text-white"
+              >
+                Login
+              </button>
             </li>
           </ul>
         </nav>
@@ -88,7 +97,7 @@ export default function Home() {
                   Reimagine Web <br className="block sm:hidden" />
                   with{" "}
                   <span className="rounded-xl bg-purple-600 px-2 pb-2 text-white">
-                    App-Auth
+                    Next-Auth
                   </span>
                 </h1>
                 <p className="mt-2 text-lg text-gray-600 sm:mt-8">

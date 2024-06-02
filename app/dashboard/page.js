@@ -1,11 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { account } from "../auth/appwrite";
 
 const DashBoardPage = () => {
   const router = useRouter();
+  const [user, setUser] = useState(null);
 
   const handleLogout = async () => {
     try {
@@ -21,6 +22,8 @@ const DashBoardPage = () => {
     const getUser = async () => {
       try {
         const user = await account.get();
+        console.log(user);
+        setUser(user);
       } catch (error) {
         console.log("error", error);
         console.log(error.response);
@@ -127,9 +130,7 @@ const DashBoardPage = () => {
                 d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
               />
             </svg>
-            <p className="text-gray-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
+            <p className="text-gray-600">Welcome {user?.name || "Username here"}</p>
           </div>
           <div className="flex max-w-xs space-x-2 px-4 py-4">
             <svg

@@ -40,7 +40,7 @@ const VerifyPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full h-screen flex items-center justify-center font-semibold text-3xl">
       {verifiedEmail ? (
         <p>Your email has been verified!</p>
       ) : (
