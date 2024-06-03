@@ -27,8 +27,22 @@ This project is a Next.js application bootstrapped with [create-next-app](file:/
    bun install
    ```
 
+### Environment Setup
+
+1. Create a `.env.local` file in the root directory of your project.
+2. Add the following environment variables to the `.env.local` file:
+
+env
+NEXT_PUBLIC_APPWRITE_ENDPOINT=<your-appwrite-endpoint>
+NEXT_PUBLIC_APPWRITE_PROJECT=<your-appwrite-project-id>
+NEXT_PUBLIC_DOMAIN=<your-domain>
+
+3. Replace `<your-appwrite-endpoint>`, `<your-appwrite-project-id>`, and `<your-domain>` with your actual Appwrite endpoint, project ID, and domain respectively.
+
 ### Running the Development Server
 Start the development server:
+
+
 ```bash
 npm run dev
 # or
